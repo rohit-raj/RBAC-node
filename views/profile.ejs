@@ -1,0 +1,50 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>RBAC using Node</title>
+	<link rel="stylesheet" href="/bootstrap.min.css"  type="text/css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="/font-awesome.min.css"  type="text/css"> <!-- load fontawesome -->
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+	</div>
+
+	<div class="row">
+
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-user"></span> Local</h3>
+
+					<p>
+						<strong>id</strong>: <%= user.id %><br>
+						<strong>username</strong>: <%= user.username %><br>
+						<strong>Roles</strong>:
+						<ul>
+							<%for (var role in user.roles){%>
+	                <li><%=user.roles[role]%></li>
+	        		<%}%>
+						</ul>
+						<%if (user.isSuperAdmin) { %>
+							<form action="/showAdmin" method="post">
+								<button type="submit" class="btn btn-warning btn-lg">Admin</button>
+							</form>
+						<% } %>
+					</p>
+
+			</div>
+		</div>
+
+	</div>
+
+</div>
+</body>
+</html>

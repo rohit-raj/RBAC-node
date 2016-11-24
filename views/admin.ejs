@@ -1,0 +1,71 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>RBAC using Node</title>
+	<link rel="stylesheet" href="/bootstrap.min.css"  type="text/css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="/font-awesome.min.css"  type="text/css"> <!-- load fontawesome -->
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> Admin Page</h1>
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+	</div>
+
+	<div class="row">
+
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-user"></span> Admin Page</h3>
+					<p>
+						<strong>username</strong>: <%= user %><br>
+						<table border="1em">
+							<tr>
+								<th>ID</th>
+								<th>UserName</th>
+								<th>Current Role(s)</th>
+								<th>Activate Role(s)</th>
+							</tr>
+							<%for (var i in details){%>
+								<tr>
+									<td><%=details[i].user_id%></td>
+									<td><%=details[i].username%></td>
+									<td><ul>
+										<%for (var userrole in details[i].roles) { %>
+											<li><u><b>
+												<form action="/changeRole/<%=details[i].user_id%>" method="post">
+													<input hidden="true" type="text" id="<%=details[i].user_id%>" name="<%=details[i].roles[userrole]%>"></input>
+													<button type="submit"><%=details[i].roles[userrole]%></button>
+												</form>
+											</b></u></li>
+										<% } %>
+										</ul></td>
+										<td><ul>
+										<%for (var role in details[i].canRoles) { %>
+											<li>
+												<form action="/changeRole/<%=details[i].user_id%>" method="post">
+													<input hidden="true" type="text" id="<%=details[i].user_id%>" name="<%=details[i].canRoles[role]%>"></input>
+													<button type="submit"><%=details[i].canRoles[role]%></button>
+												</form>
+											</li>
+			        			<% } %>
+									</ul></td>
+								<%}%>
+							</tr>
+						</table>
+					</p>
+
+			</div>
+		</div>
+
+	</div>
+
+</div>
+</body>
+</html>
